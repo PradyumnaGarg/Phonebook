@@ -11,13 +11,19 @@ const storeUser = async (userToStore) => {
     return storedUser;
 }
 
-const findUser = async (username) => {
+const findUserByUsername = async (username) => {
     const user = await User.findOne({username});
+    return user;
+}
+
+const findUserById = async (id) => {
+    const user = await User.findById(id);
     return user;
 }
 
 module.exports = {
     findUsers,
     storeUser,
-    findUser
+    findUserByUsername,
+    findUserById
 };

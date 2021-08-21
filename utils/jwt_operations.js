@@ -7,7 +7,7 @@ const createToken = (id) => {
 }
 
 const verifyToken = (token) => {
-    const id = jwt.verify(token, JWT_SECRET);
+    const { id } = jwt.verify(token, JWT_SECRET);
     return id;
 }
 

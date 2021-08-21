@@ -28,7 +28,7 @@ const loginUser = async (request) => {
         throw new ErrorGenerator(401, 'Either username or password is missing in the request.');
     }
 
-    const user = await UsersDataAccessLayer.findUser(username);
+    const user = await UsersDataAccessLayer.findUserByUsername(username);
     if (!user) {
         throw new ErrorGenerator(404, 'Username not found in the database.');
     }
