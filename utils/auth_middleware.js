@@ -5,11 +5,11 @@ const ErrorGenerator = require('./error_generator');
 const userExtractor = async (request, reponse, next) => {
 
     if(!request.headers.authorization) {
-        next(new ErrorGenerator(400, 'No authorization token sent in the request'));
+        return next(new ErrorGenerator(400, 'No authorization token sent in the request'));
     }
 
     if (!request.headers.authorization.startsWith('Bearer')) {
-        next(new ErrorGenerator(400, 'Authorization token should be of type Bearer token'));
+        return next(new ErrorGenerator(400, 'Authorization token should be of type Bearer token'));
     }
     
     const token = request.headers.authorization.split(' ')[1];

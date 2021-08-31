@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 const userExtractor = require('../../utils/auth_middleware');
 const contactsController = require('./contacts.controller');
 
-contactsRouter.route('/')
+contactsRouter.route('/allContacts')
 .get(userExtractor, async (request, response) => {
   const result = await contactsController.getAllContacts();
+  response.json({result});
+})
+
+contactsRouter.route('/')
+.get(userExtractor, async (request, response) => {
+  const result = await contactsController.getUserContacts(request);
   response.json({result});
 })
 .post(userExtractor, async (request, response) => {
@@ -46,18 +52,10 @@ contactsRouter.route('/')
 //     .catch((error) => next(error));
 // });
 
-// contactsRouter.delete('/:id', (req, res, next) => {
-//   Person.findByIdAndRemove(req.params.id)
-//     .then((result) => {
-//       if (result) {
-//         res.status(204).json({ resp: 'No Content' });
-//       } else {
-//         next({ name: 'NotFound' });
-//       }
-//     })
-//     .catch((error) => {
-//       next(error);
-//     });
-// });
+contactsRouter.route('/:contactId')
+.delete(userExtractor, async (request, response) => {
+  await contactsController.removeUserContact(request);
+  response.status(204).json({result: 'deleted'});
+});
 
 module.exports = contactsRouter;

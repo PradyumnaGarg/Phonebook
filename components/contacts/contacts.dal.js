@@ -1,17 +1,17 @@
 const Contact = require('./contacts.model');
+const { Types: { ObjectId } } = require('mongoose');
 
-const saveContact = async (contactToSave) => {
-    const contact = new Contact(contactToSave);
-    const savedContact = await contact.save();
-    return savedContact;
-}
+const saveContact = async (contactToSave) => await Contact.create(contactToSave);
 
-const getAllContacts = async () => {
-    const allContacts = await Contact.find({});
-    return allContacts;
-}
+const getAllContacts = async () => await Contact.find({});
+
+const getUserContacts = async (userId) => await Contact.find({savedBy: ObjectId(userId)})
+
+const removeUserContact = async (userId, contactId) => await Contact.findOneAndRemove({_id: contactId, savedBy: userId });
 
 module.exports = {
     saveContact,
-    getAllContacts
+    getAllContacts,
+    getUserContacts,
+    removeUserContact
 }
