@@ -14,8 +14,8 @@ const ContactSchema = new mongoose.Schema({
   },
   savedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
-  }
+    ref: 'users',
+  },
 }, { timestamps: true });
 
 ContactSchema.plugin(uniqueValidator);
