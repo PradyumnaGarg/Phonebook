@@ -12,7 +12,7 @@ const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'Unknown endpoint' });
 };
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, request, response) => {
   if (error.status) {
     return response.status(error.status).send({ error: error.message });
   }

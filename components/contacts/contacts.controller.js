@@ -1,14 +1,20 @@
 const contactsDataAccessLayer = require('./contacts.dal');
 
-const getAllContacts = async () => await contactsDataAccessLayer.getAllContacts();
+const getAllContacts = () => contactsDataAccessLayer.getAllContacts();
 
-const getUserContacts = async (request) => await contactsDataAccessLayer.getUserContacts(request.user._id);
+const getUserContacts = (request) => contactsDataAccessLayer.getUserContacts(request.user._id);
 
 const saveContact = async (request) => {
   const { name, number } = request.body;
   const contactToSave = { name, number, savedBy: request.user._id };
   const savedContact = await contactsDataAccessLayer.saveContact(contactToSave);
   return savedContact;
+};
+
+const getContactById = async (request) => {
+  const id = request.params.contactId;
+  const contact = await contactsDataAccessLayer.getContactById(id);
+  return contact;
 };
 
 const removeUserContact = async (request) => {
@@ -20,5 +26,6 @@ module.exports = {
   saveContact,
   getAllContacts,
   getUserContacts,
+  getContactById,
   removeUserContact,
 };
