@@ -22,10 +22,17 @@ const removeUserContact = async (request) => {
   await contactsDataAccessLayer.removeUserContact(request.user._id, contactId);
 };
 
+const updateContact = async (request) => {
+  const contactData = request.body;
+  const updatedContact = await contactsDataAccessLayer.updateContact(contactData);
+  return updatedContact;
+};
+
 module.exports = {
   saveContact,
   getAllContacts,
   getUserContacts,
   getContactById,
+  updateContact,
   removeUserContact,
 };

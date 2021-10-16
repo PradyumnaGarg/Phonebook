@@ -26,14 +26,10 @@ contactsRouter.route('/:contactId')
   .delete(userExtractor, async (request, response) => {
     await contactsController.removeUserContact(request);
     response.status(204).json({ result: 'deleted' });
+  })
+  .put(userExtractor, async (request, response) => {
+    const result = await contactsController.updateContact(request);
+    response.status(200).json({ result });
   });
-
-// contactsRouter.put('/:id', (req, res, next) => {
-//   Person.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
-//     .then((updatedPerson) => {
-//       res.status(200).json(updatedPerson);
-//     })
-//     .catch((error) => next(error));
-// });
 
 module.exports = contactsRouter;
