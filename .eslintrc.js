@@ -11,6 +11,7 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
+    'max-len': 'off',
     'no-console': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
   },
