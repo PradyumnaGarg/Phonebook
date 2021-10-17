@@ -18,6 +18,12 @@ contactsRouter.route('/')
     response.status(201).json({ result });
   });
 
+contactsRouter.route('/favourites')
+  .get(userExtractor, async (request, response) => {
+    const result = await contactsController.getFavouriteContacts(request);
+    response.json({ result });
+  });
+
 contactsRouter.route('/:contactId')
   .get(userExtractor, async (request, response) => {
     const result = await contactsController.getContactById(request);

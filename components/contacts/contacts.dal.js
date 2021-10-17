@@ -1,11 +1,10 @@
-const { Types: { ObjectId } } = require('mongoose');
 const Contact = require('./contacts.model');
 
 const saveContact = (contactToSave) => Contact.create(contactToSave);
 
 const getAllContacts = () => Contact.find({});
 
-const getUserContacts = (userId) => Contact.find({ savedBy: ObjectId(userId) });
+const getUserContacts = (query) => Contact.find({ ...query });
 
 const getContactById = (id) => Contact.findById(id);
 

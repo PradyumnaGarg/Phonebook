@@ -1,8 +1,17 @@
+const { Types: { ObjectId } } = require('mongoose');
 const contactsDataAccessLayer = require('./contacts.dal');
 
 const getAllContacts = () => contactsDataAccessLayer.getAllContacts();
 
-const getUserContacts = (request) => contactsDataAccessLayer.getUserContacts(request.user._id);
+const getUserContacts = (request) => {
+  const query = { savedBy: ObjectId(request.user._id) };
+  return contactsDataAccessLayer.getUserContacts(query);
+};
+
+const getFavouriteContacts = (request) => {
+  const query = { savedBy: ObjectId(request.user._id), favourite: true };
+  return contactsDataAccessLayer.getUserContacts(query);
+};
 
 const saveContact = async (request) => {
   const { name, number } = request.body;
@@ -35,4 +44,5 @@ module.exports = {
   getContactById,
   updateContact,
   removeUserContact,
+  getFavouriteContacts,
 };
