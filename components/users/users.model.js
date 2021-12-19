@@ -16,8 +16,21 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  name: {
+  firstName: {
     type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  dateOfBirth: {
+    type: Date,
+  },
+  isPublic: {
+    type: Boolean,
+    default: false,
   },
 });
 
