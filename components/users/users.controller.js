@@ -10,7 +10,7 @@ const getUsers = async () => {
 
 const registerUser = async (request) => {
   const {
-    username, password, name, mobileNumber,
+    username, password, firstName, lastName, mobileNumber,
   } = request.body;
   if (!password) {
     throw new ErrorGenerator(401, 'Password is missing in the request');
@@ -20,7 +20,7 @@ const registerUser = async (request) => {
   }
   const passwordHash = await bcrypt.hash(password, 10);
   const userToStore = {
-    username, passwordHash, name, mobileNumber,
+    username, passwordHash, firstName, lastName, mobileNumber,
   };
   const storedUser = await UsersDataAccessLayer.storeUser(userToStore);
   return storedUser;
