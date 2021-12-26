@@ -46,8 +46,16 @@ const loginUser = async (request) => {
   return { token, username, mobileNumber: user.mobileNumber };
 };
 
+const userProfile = async (request) => {
+  if(!request.user){
+    throw new ErrorGenerator(404, 'Cannot retrieve profile details at the moment');
+  }
+  return request.user;
+}
+
 module.exports = {
   getUsers,
   registerUser,
   loginUser,
+  userProfile
 };

@@ -1,4 +1,5 @@
 const usersRouter = require('express').Router();
+const userExtractor = require('../../utils/auth_middleware');
 const usersController = require('./users.controller');
 
 usersRouter.route('/')
@@ -18,5 +19,11 @@ usersRouter.route('/register')
     const result = await usersController.registerUser(request);
     return response.json({ result });
   });
+
+usersRouter.route('/profile')
+.get( userExtractor , async (request, response) => {
+  const result = await usersController.userProfile(request);
+  return response.json({result});
+})
 
 module.exports = usersRouter;
