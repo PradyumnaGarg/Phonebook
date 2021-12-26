@@ -37,6 +37,12 @@ const updateContact = async (request) => {
   return updatedContact;
 };
 
+const getContactsGraphData = async (request) => {
+  const graphData = await contactsDataAccessLayer.groupByDate(request.user._id);
+  console.log('Data', graphData);
+  return graphData;
+};
+
 module.exports = {
   saveContact,
   getAllContacts,
@@ -45,4 +51,5 @@ module.exports = {
   updateContact,
   removeUserContact,
   getFavouriteContacts,
+  getContactsGraphData,
 };
