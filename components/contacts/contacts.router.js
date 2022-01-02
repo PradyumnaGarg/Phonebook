@@ -25,7 +25,7 @@ contactsRouter.route('/favourites')
   });
 
 contactsRouter.route('/graphData')
-  .get(userExtractor, async (request, response) => {
+  .post(userExtractor, async (request, response) => {
     const result = await contactsController.getContactsGraphData(request);
     response.json({ result });
   });

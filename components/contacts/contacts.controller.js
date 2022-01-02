@@ -38,8 +38,7 @@ const updateContact = async (request) => {
 };
 
 const getContactsGraphData = async (request) => {
-  const graphData = await contactsDataAccessLayer.groupByDate(request.user._id);
-  console.log('Data', graphData);
+  const graphData = await contactsDataAccessLayer.groupByDate(request.user._id, request.body);
   return graphData;
 };
 
