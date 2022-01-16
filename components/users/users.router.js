@@ -32,5 +32,15 @@ usersRouter.route('/changePassword')
   const result = await usersController.changePassword(request);
   return response.json({result});
 })
+usersRouter.route('/reset-password')
+  .post(async (request, response) => {
+    const result = await usersController.resetPassword(request);
+    return response.json({ result });
+  });
+usersRouter.route('/forgot-password')
+  .post(async (request, response) => {
+    const result = await usersController.forgotPassowrd(request);
+    return response.json({ result });
+  });
 
 module.exports = usersRouter;

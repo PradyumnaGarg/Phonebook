@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const ErrorGenerator = require('../../utils/error_generator');
 const UsersDataAccessLayer = require('./users.dal');
 const jwtOperations = require('../../utils/jwt_operations');
+const { mailer } = require('../../utils/mail_transporter');
 
 const getUsers = async () => {
   const users = UsersDataAccessLayer.findUsers();
@@ -64,11 +65,38 @@ const changePassword = async (request) => {
   const updatedUserInDB = await UsersDataAccessLayer.updateUser(updatedUser);
   return updatedUserInDB;
 }
+const forgotPassowrd = async (request) => {
+  const { username } = request.body;
+  const user = await UsersDataAccessLayer.findUserByUsername(username);
+  if (!user) {
+    throw new ErrorGenerator(404, 'Email not found');
+  }
+
+  const mailBody = {
+    username: user.username,
+    _id: user._id,
+  };
+
+  const mailResult = await mailer(mailBody);
+
+  if (!mailResult) {
+    throw new ErrorGenerator(500, 'Email not sent');
+  }
+
+  return { message: 'Email sent successfully' };
+};
+
+const resetPassword = async (request) => {
+  const { password } = request.body;
+  // const user = await UsersDataAccessLayer.
+};
 
 module.exports = {
   getUsers,
   registerUser,
   loginUser,
   userProfile,
-  changePassword
+  changePassword,
+  forgotPassowrd,
+  resetPassword,
 };

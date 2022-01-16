@@ -24,6 +24,12 @@ contactsRouter.route('/favourites')
     response.json({ result });
   });
 
+contactsRouter.route('/graphData')
+  .post(userExtractor, async (request, response) => {
+    const result = await contactsController.getContactsGraphData(request);
+    response.json({ result });
+  });
+
 contactsRouter.route('/:contactId')
   .get(userExtractor, async (request, response) => {
     const result = await contactsController.getContactById(request);
