@@ -11,6 +11,12 @@ const storeUser = async (userToStore) => {
   return storedUser;
 };
 
+const updateUser = async (userToUpdate) => {
+  console.log(userToUpdate, 'userToUpdte');
+  const user = await User.findByIdAndUpdate(userToUpdate._id, { $set: userToUpdate}, {new: true});
+  return user;
+}
+
 const findUserByUsername = async (username) => {
   const user = await User.findOne({ username });
   return user;
@@ -26,4 +32,5 @@ module.exports = {
   storeUser,
   findUserByUsername,
   findUserById,
+  updateUser
 };

@@ -53,9 +53,22 @@ const userProfile = async (request) => {
   return request.user;
 }
 
+const changePassword = async (request) => {
+  const { password, newPassword } = request.body;
+  const passwordCorrect = await bcrypt.compare(password, user.passwordHash);
+  if(!passwordCorrect) {
+    throw new ErrorGenerator(401, 'Invalid Password');
+  }
+  const newPasswordHash = await bcrypt.hash(newPassword, 10);
+  const updatedUser = { _id: request.user._id, passwordHash: newPasswordHash};
+  const updatedUserInDB = await UsersDataAccessLayer.updateUser(updatedUser);
+  return updatedUserInDB;
+}
+
 module.exports = {
   getUsers,
   registerUser,
   loginUser,
-  userProfile
+  userProfile,
+  changePassword
 };

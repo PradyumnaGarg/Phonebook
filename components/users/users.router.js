@@ -1,4 +1,5 @@
 const usersRouter = require('express').Router();
+const { request, response } = require('express');
 const userExtractor = require('../../utils/auth_middleware');
 const usersController = require('./users.controller');
 
@@ -23,6 +24,12 @@ usersRouter.route('/register')
 usersRouter.route('/profile')
 .get( userExtractor , async (request, response) => {
   const result = await usersController.userProfile(request);
+  return response.json({result});
+})
+
+usersRouter.route('/changePassword')
+.put ( userExtractor, async (request, response) => {
+  const result = await usersController.changePassword(request);
   return response.json({result});
 })
 
